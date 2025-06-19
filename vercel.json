@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "animalcare-foundation",
+  "builds": [
+    {
+      "src": "charitylite-client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/charitylite-client"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/charitylite-client/$1"
+    }
+  ],
+  "buildCommand": "cd charitylite-client && npm run build:prod",
+  "devCommand": "cd charitylite-client && npm run start",
+  "installCommand": "cd charitylite-client && npm install",
+  "outputDirectory": "charitylite-client/dist/charitylite-client"
+}
