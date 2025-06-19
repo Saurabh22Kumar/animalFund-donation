@@ -1,0 +1,289 @@
+<!-- Donation Card -->
+<div class="donation-card">
+  <div class="card-header">
+    <div class="card-icon">
+      <i class="fas fa-paw"></i>
+    </div>
+    <h2 class="card-title">Help Save Animals</h2>
+    <p class="card-subtitle">Your kindness gives animals a second chance at life</p>
+  </div>
+
+  <!-- Success State -->
+  <div *ngIf="paymentSuccess" class="success-state animate-scale-in">
+    <div class="success-animation">
+      <div class="success-checkmark">
+        <div class="check-icon">
+          <span class="icon-line line-tip"></span>
+          <span class="icon-line line-long"></span>
+          <div class="icon-circle"></div>
+          <div class="icon-fix"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="success-content">
+      <h3 class="success-title">Thank You for Your Generosity!</h3>
+      <p class="success-message">Your donation of <strong>₹{{ donationModel.amount }}</strong> has been processed successfully.</p>
+      <div class="success-details">
+        <div class="detail-item">
+          <i class="fas fa-receipt"></i>
+          <span>Transaction ID: {{ transactionId }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-download"></i>
+          <span>Receipt downloaded automatically</span>
+        </div>
+      </div>
+      
+      <div class="success-actions">
+        <button class="btn btn-primary btn-lg" (click)="resetForm()">
+          <i class="fas fa-plus me-2"></i>
+          Make Another Donation
+        </button>
+        <button class="btn btn-outline-secondary" (click)="shareSuccess()">
+          <i class="fas fa-share-alt me-2"></i>
+          Share Your Impact
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donation Form -->
+  <div *ngIf="!paymentSuccess" class="donation-form-container">
+    <form (ngSubmit)="donate()" #donationForm="ngForm" novalidate class="donation-form">
+      
+      <!-- Quick Amount Selection -->
+      <div class="form-section">
+        <label class="section-label">
+          <i class="fas fa-rupee-sign me-2"></i>
+          Choose Amount
+        </label>
+        <div class="quick-amounts">
+          <button type="button" 
+                  class="amount-btn" 
+                  [class.selected]="donationModel.amount === amount"
+                  *ngFor="let amount of quickAmounts" 
+                  (click)="selectAmount(amount)">
+            ₹{{ amount }}
+          </button>
+        </div>
+        
+        <div class="custom-amount">
+          <div class="form-group">
+            <label for="amount" class="form-label">Or enter custom amount</label>
+            <div class="input-group">
+              <span class="input-icon">₹</span>
+              <input type="number" 
+                     class="form-control" 
+                     id="amount" 
+                     name="amount"
+                     [(ngModel)]="donationModel.amount" 
+                     required 
+                     min="1" 
+                     placeholder="Enter amount"
+                     #amount="ngModel">
+            </div>
+            <div class="field-error" *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+              <i class="fas fa-exclamation-circle"></i>
+              <span *ngIf="amount.errors?.['required']">Amount is required</span>
+              <span *ngIf="amount.errors?.['min']">Minimum amount is ₹1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Information -->
+      <div class="form-section">
+        <label class="section-label">
+          <i class="fas fa-user me-2"></i>
+          Your Information
+        </label>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name" class="form-label">Full Name</label>
+            <div class="input-group">
+              <span class="input-icon"><i class="fas fa-user"></i></span>
+              <input type="text" 
+                     class="form-control" 
+                     id="name" 
+                     name="name"
+                     [(ngModel)]="donationModel.name" 
+                     required 
+                     placeholder="Enter your full name"
+                     #name="ngModel">
+            </div>
+            <div class="field-error" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>Name is required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <div class="input-group">
+              <span class="input-icon"><i class="fas fa-envelope"></i></span>
+              <input type="email" 
+                     class="form-control" 
+                     id="email" 
+                     name="email"
+                     [(ngModel)]="donationModel.email" 
+                     required 
+                     email 
+                     placeholder="Enter your email"
+                     #email="ngModel">
+            </div>
+            <div class="field-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+              <i class="fas fa-exclamation-circle"></i>
+              <span *ngIf="email.errors?.['required']">Email is required</span>
+              <span *ngIf="email.errors?.['email']">Please enter a valid email</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Section -->
+      <div class="form-section">
+        <label class="section-label">
+          <i class="fas fa-heart me-2"></i>
+          Share Your Motivation (Optional)
+        </label>
+        
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-icon"><i class="fas fa-comment"></i></span>
+            <textarea class="form-control message-input" 
+                      id="message" 
+                      name="message"
+                      [(ngModel)]="donationModel.message" 
+                      rows="3"
+                      placeholder="What inspires you to donate today?"></textarea>
+          </div>        <div class="character-count">
+          {{ donationModel.message.length || 0 }}/500 characters
+        </div>
+        </div>
+      </div>
+
+      <!-- Impact Preview -->
+      <div class="impact-preview" *ngIf="donationModel.amount && donationModel.amount > 0">
+        <div class="impact-header">
+          <i class="fas fa-paw"></i>
+          <h4>Your Animal Impact</h4>
+        </div>
+        <div class="impact-items">
+          <div class="impact-item" *ngIf="donationModel.amount >= 100">
+            <i class="fas fa-bone"></i>
+            <span>{{ Math.floor(donationModel.amount / 25) }} meals for hungry animals</span>
+          </div>
+          <div class="impact-item" *ngIf="donationModel.amount >= 500">
+            <i class="fas fa-stethoscope"></i>
+            <span>{{ Math.floor(donationModel.amount / 100) }} medical checkups</span>
+          </div>
+          <div class="impact-item" *ngIf="donationModel.amount >= 1000">
+            <i class="fas fa-home"></i>
+            <span>{{ Math.floor(donationModel.amount / 200) }} days of shelter care</span>
+          </div>
+          <div class="impact-item" *ngIf="donationModel.amount >= 2000">
+            <i class="fas fa-heart"></i>
+            <span>{{ Math.floor(donationModel.amount / 500) }} rescue operations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donation Summary -->
+      <div class="donation-summary" *ngIf="donationModel.amount && donationModel.amount > 0">
+        <div class="summary-row">
+          <span>Donation Amount:</span>
+          <span class="amount">₹{{ donationModel.amount }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Processing Fee:</span>
+          <span class="amount">₹0</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span class="amount">₹{{ donationModel.amount }}</span>
+        </div>
+      </div>
+
+      <!-- Payment Methods -->
+      <div class="payment-methods" *ngIf="donationModel.amount && donationModel.amount > 0">
+        <div class="payment-header">
+          <i class="fas fa-credit-card"></i>
+          <h4>Secure Payment Options</h4>
+        </div>
+        <div class="payment-options">
+          <div class="payment-option">
+            <i class="fab fa-google-pay"></i>
+            <span>UPI</span>
+          </div>
+          <div class="payment-option">
+            <i class="fas fa-credit-card"></i>
+            <span>Cards</span>
+          </div>
+          <div class="payment-option">
+            <i class="fas fa-university"></i>
+            <span>Net Banking</span>
+          </div>
+          <div class="payment-option">
+            <i class="fas fa-wallet"></i>
+            <span>Wallets</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" 
+                class="btn btn-primary btn-donate" 
+                [disabled]="donationForm.invalid || processing"
+                [class.processing]="processing">
+          <span class="btn-content">
+            <span *ngIf="!processing" class="btn-text">
+              <i class="fas fa-heart me-2"></i>
+              Donate ₹{{ donationModel.amount || 0 }} Now
+            </span>
+            <span *ngIf="processing" class="btn-loading">
+              <div class="spinner"></div>
+              Processing Payment...
+            </span>
+          </span>
+        </button>
+        
+        <!-- Quick UPI Button -->
+        <button type="button" 
+                class="btn btn-secondary btn-upi" 
+                [disabled]="donationForm.invalid || processing"
+                [class.processing]="processing"
+                (click)="donateWithUPI()">
+          <span class="btn-content">
+            <span *ngIf="!processing" class="btn-text">
+              <i class="fab fa-google-pay me-2"></i>
+              Quick UPI Payment
+            </span>
+          </span>
+        </button>
+        
+        <div class="security-note">
+          <i class="fas fa-lock"></i>
+          <span>Your payment is secured with 256-bit SSL encryption</span>
+        </div>
+        
+        <!-- Test Credentials Button (Development Mode) -->
+        <div class="test-credentials-section">
+          <button type="button" 
+                  class="btn btn-outline-info btn-sm btn-test-credentials" 
+                  (click)="showTestCredentials()">
+            <i class="fas fa-info-circle me-2"></i>
+            Show Test Credentials
+          </button>
+          <small class="test-note">
+            <i class="fas fa-exclamation-triangle"></i>
+            Test mode active - No real money will be charged
+          </small>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

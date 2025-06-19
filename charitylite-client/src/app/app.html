@@ -1,0 +1,254 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-gradient"></div>
+  
+  <!-- Dark Mode Toggle -->
+  <div class="dark-mode-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+    <i class="fas fa-moon" *ngIf="!isDarkMode"></i>
+    <i class="fas fa-sun" *ngIf="isDarkMode"></i>
+  </div>
+  
+  <div class="hero-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+          <div class="hero-logo animate-float">
+            <div class="logo-circle">
+              <i class="fas fa-paw"></i>
+            </div>
+          </div>
+          <h1 class="hero-title animate-slide-up">{{ title }}</h1>
+          <p class="hero-subtitle animate-slide-up delay-1">{{ description }}</p>
+          
+          <!-- Animal Statistics -->
+          <div class="animal-stats animate-slide-up delay-2">
+            <div class="stat-card">
+              <div class="stat-icon">🐕</div>
+              <div class="stat-number counter" data-target="2847">0</div>
+              <div class="stat-label">Dogs Rescued</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🐱</div>
+              <div class="stat-number counter" data-target="1923">0</div>
+              <div class="stat-label">Cats Saved</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏥</div>
+              <div class="stat-number counter" data-target="15420">0</div>
+              <div class="stat-label">Medical Treatments</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏠</div>
+              <div class="stat-number counter" data-target="3156">0</div>
+              <div class="stat-label">Animals Rehomed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-waves">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Mission Statement -->
+<section class="mission-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <div class="mission-content animate-fade-in">
+          <h2 class="mission-title">Our Mission</h2>
+          <p class="mission-text">
+            Every day, thousands of animals suffer from abandonment, abuse, and neglect. At AnimalCare Foundation, 
+            we believe every creature deserves love, care, and a chance at happiness. Your donation directly funds 
+            rescue operations, medical treatments, shelter facilities, and adoption programs that transform lives.
+          </p>
+          <div class="mission-highlights">
+            <div class="highlight-item">
+              <i class="fas fa-heart"></i>
+              <span>24/7 Rescue Operations</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-stethoscope"></i>
+              <span>Free Medical Care</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-home"></i>
+              <span>Adoption Programs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container">
+    <!-- Mission Statement -->
+    <section class="mission-section animate-fade-in-up">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="mission-content">
+            <h2 class="section-title">Our Mission: Every Animal Deserves Love</h2>
+            <p class="section-description">
+              At AnimalCare Foundation, we believe every animal deserves a chance at a happy, healthy life. 
+              Through rescue operations, medical care, and rehabilitation, we transform the lives of abandoned 
+              and injured animals, giving them hope for a brighter future.
+            </p>
+            
+            <div class="mission-highlights">
+              <div class="highlight-card">
+                <div class="highlight-icon">🚑</div>
+                <h4>Emergency Rescue</h4>
+                <p>24/7 emergency response for animals in crisis situations</p>
+              </div>
+              <div class="highlight-card">
+                <div class="highlight-icon">🏥</div>
+                <h4>Medical Care</h4>
+                <p>Comprehensive veterinary treatment and rehabilitation</p>
+              </div>
+              <div class="highlight-card">
+                <div class="highlight-icon">❤️</div>
+                <h4>Forever Homes</h4>
+                <p>Matching rescued animals with loving families</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Donation Form -->
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="donation-section animate-fade-in">
+          <app-donation-form></app-donation-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Trust Indicators -->
+<section class="trust-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h3 class="trust-title">Trusted by Animal Lovers Worldwide</h3>
+        <p class="trust-subtitle">Join thousands of compassionate donors making a real difference</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4 col-6 mb-3">
+        <div class="trust-item">
+          <i class="fas fa-shield-alt"></i>
+          <h4>100% Secure</h4>
+          <p>Your donations are protected with bank-level security</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-6 mb-3">
+        <div class="trust-item">
+          <i class="fas fa-receipt"></i>
+          <h4>Tax Receipts</h4>
+          <p>Instant PDF receipts for tax deductions</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-6 mb-3">
+        <div class="trust-item">
+          <i class="fas fa-paw"></i>
+          <h4>Direct Impact</h4>
+          <p>100% of donations go directly to animal care</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Impact Stories -->
+<section class="impact-stories">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h3 class="section-title">Stories of Hope</h3>
+        <p class="section-subtitle">See how your donations create miracles</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="story-card">
+          <div class="story-image">
+            <div class="story-emoji">🐕</div>
+          </div>
+          <div class="story-content">
+            <h4>Max's Second Chance</h4>
+            <p>Rescued from the streets with a broken leg, Max received life-saving surgery and found his forever home with a loving family.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="story-card">
+          <div class="story-image">
+            <div class="story-emoji">🐱</div>
+          </div>
+          <div class="story-content">
+            <h4>Luna's Recovery</h4>
+            <p>Found malnourished and scared, Luna spent 3 months in our care recovering. Today, she's a healthy, playful cat with a new family.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="story-card">
+          <div class="story-image">
+            <div class="story-emoji">🐰</div>
+          </div>
+          <div class="story-content">
+            <h4>Bunny's Journey</h4>
+            <p>Abandoned as a baby rabbit, Bunny grew up in our sanctuary and now helps socialize other rescued animals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="modern-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="footer-brand">
+          <h5>{{ title }}</h5>
+          <p>Dedicated to rescuing, rehabilitating, and finding loving homes for animals in need. Every donation saves a life.</p>
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <div class="footer-links">
+          <a href="#" class="footer-link">About Our Mission</a>
+          <a href="#" class="footer-link">Adoption Center</a>
+          <a href="#" class="footer-link">Volunteer</a>
+          <a href="#" class="footer-link">Contact Us</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="footer-copyright">&copy; 2025 {{ title }}. All rights reserved. Made with <i class="fas fa-heart text-danger"></i> for our furry friends.</p>
+        <p class="footer-license">Registered 501(c)(3) Non-Profit Organization | Tax ID: 12-3456789</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
