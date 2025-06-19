@@ -816,10 +816,6 @@ body.dark .container {
   letter-spacing: 0.025em;
 }
 
-.btn-upi {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-}
-
 .btn-content {
   display: flex;
   align-items: center;

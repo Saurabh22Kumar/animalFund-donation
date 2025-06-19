@@ -251,20 +251,6 @@
           </span>
         </button>
         
-        <!-- Quick UPI Button -->
-        <button type="button" 
-                class="btn btn-secondary btn-upi" 
-                [disabled]="donationForm.invalid || processing"
-                [class.processing]="processing"
-                (click)="donateWithUPI()">
-          <span class="btn-content">
-            <span *ngIf="!processing" class="btn-text">
-              <i class="fab fa-google-pay me-2"></i>
-              Quick UPI Payment
-            </span>
-          </span>
-        </button>
-        
         <div class="security-note">
           <i class="fas fa-lock"></i>
           <span>Your payment is secured with 256-bit SSL encryption</span>

@@ -48,13 +48,6 @@ export class DonationForm {
     expiry: '12/25'
   };
 
-  // Test UPI IDs that work with Razorpay test mode
-  private testUPIs = [
-    'success@razorpay',
-    'failure@razorpay',
-    'test@upi'
-  ];
-
   constructor() {}
 
   selectAmount(amount: number) {
@@ -167,65 +160,6 @@ export class DonationForm {
     }
   }
 
-  // UPI-specific donation method
-  donateWithUPI() {
-    if (!this.donationModel.amount || this.donationModel.amount <= 0) {
-      return;
-    }
-
-    this.processing = true;
-
-    const options = {
-      key: this.config.razorpay.keyId,
-      amount: this.donationModel.amount * 100,
-      currency: this.config.razorpay.currency,
-      name: this.config.razorpay.name,
-      description: this.config.razorpay.description,
-      image: this.config.razorpay.image,
-      handler: (response: any) => {
-        this.processing = false;
-        this.paymentSuccess = true;
-        this.transactionId = response.razorpay_payment_id;
-        console.log('UPI Payment successful:', response);
-        this.generateReceipt(response.razorpay_payment_id);
-      },
-      prefill: {
-        name: this.donationModel.name,
-        email: this.donationModel.email,
-      },
-      method: {
-        upi: true,
-        card: false,
-        netbanking: false,
-        wallet: false
-      },
-      theme: this.config.razorpay.theme,
-      modal: {
-        ondismiss: () => {
-          this.processing = false;
-          console.log('UPI payment window dismissed');
-        }
-      }
-    };
-
-    try {
-      const rzp = new Razorpay(options);
-      
-      // Add error handling for UPI payments
-      rzp.on('payment.failed', (response: any) => {
-        this.processing = false;
-        console.log('UPI Payment failed:', response);
-        alert(`UPI Payment failed: ${response.error.description}`);
-      });
-      
-      rzp.open();
-    } catch (error) {
-      console.error('UPI payment error:', error);
-      this.processing = false;
-      alert('UPI payment gateway error. Please try again.');
-    }
-  }
-
   generateReceipt(paymentId: string) {
     const doc = new jsPDF();
     
@@ -309,11 +243,6 @@ export class DonationForm {
 • RuPay: ${this.testCards.rupay}
 • CVV: Any 3 digits (e.g., ${this.testCards.cvv})
 • Expiry: Any future date (e.g., ${this.testCards.expiry})
-
-📱 TEST UPI IDs:
-• ${this.testUPIs[0]} (Success scenario)
-• ${this.testUPIs[1]} (Failure scenario)
-• ${this.testUPIs[2]} (General test)
 
 🏦 NET BANKING:
 • Select any bank and use dummy credentials
