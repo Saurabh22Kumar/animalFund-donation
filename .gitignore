@@ -110,3 +110,47 @@ jspm_packages/
 
 # TernJS port file
 .tern-port
+
+# ASP.NET Core specific (for future integration)
+*.user
+*.suo
+*.cache
+*.docstates
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+.vs/
+*.userprefs
+*.pidb
+*.svclog
+*.scc
+
+# ASP.NET Core build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# ASP.NET Core project files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Core Entity Framework
+*.mdf
+*.ldf
+*.ndf
+
+# ASP.NET Core configuration files with secrets
+appsettings.local.json
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+!appsettings.example.json
